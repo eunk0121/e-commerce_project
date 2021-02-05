@@ -1,15 +1,11 @@
-import {useState} from "react"
+import { useState } from "react";
 
 const Button = () => {
-    const [numOfClicks, SetNumOfClicks] = useState(0);
-    
-    console.log(numOfClicks);
-const handleClick = () => {
-    SetNumOfClicks(numOfClicks +1);
-};
-
-    return <Button onClick={handleClick}>clicked ({numOfClicks})</Button>
-
+  //   const [numOfClicks, SetNumOfClicks] = useState(0);
+  //   const handleClick = () => {
+  //     SetNumOfClicks(numOfClicks + 1);
+  //   };
+  //   return <button onClick={handleClick}>clicked ({numOfClicks})</button>;
 };
 
 export default Button;
