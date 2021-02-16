@@ -29,7 +29,7 @@ const ClientSide = () => {
 
     fetchPokemon();
   }, []);
-  console.log(pokemon);
+
   return pokemon.map((poke) => {
     return (
       <div key={poke.name}>
