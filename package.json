@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "fs": "0.0.1-security",
     "gray-matter": "^4.0.2",
     "marked": "^2.0.0",
     "next": "^10.0.6",
@@ -23,5 +24,10 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }
