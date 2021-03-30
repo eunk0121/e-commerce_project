@@ -4,18 +4,22 @@ export const Context = createContext();
 
 const Cart = ({ children }) => {
   const getInitialCart = () => JSON.parse(localStorage.getItem('cart'));
-  const [cart, seCart] = useState();
+  const [cart, setCart] = useState();
 
-  useEffect(() => {
-    const initalCart = getInitialCart();
-    if (initalCart) {
-      setCart(initalCart);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const initalCart = getInitialCart();
+  //   if (initalCart) {
+  //     setCart(initalCart);
+  //   }
+  // }, []);
 
   useEffect(() => {
     //write to local storage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    //localStorage.setItem('cart', JSON.stringify(cart));
+
+    if (cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
   }, [cart]);
 
   const addItemToCart = (id, qty = 1) => {

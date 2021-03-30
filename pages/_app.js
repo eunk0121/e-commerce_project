@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Normalize } from 'styled-normalize';
 import Navbar from '../components/Navbar';
 import CartProvider from '../context/Cart';
+import Cart from '../components/Cart';
 
 const Container = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
@@ -26,6 +27,7 @@ const MyApp = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </Page>
       </Container>
+      <Cart />
     </CartProvider>
   );
 };
