@@ -2,13 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import marked, { use } from 'marked';
 import styled from 'styled-components';
-import useCart from '../../hooks/useCart';
-
-const Container = styled.div`
-  background-color: white;
-  padding: 1rem 2rem;
-  margin: 1rem 0;
-`;
+import Page from '../../components/styled/Page';
 
 const Title = styled.div`
   display: flex;

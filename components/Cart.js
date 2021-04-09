@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FiX } from 'react-icons/fi';
 import useCart from '../hooks/useCart';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   position: fixed;
@@ -11,6 +12,8 @@ const Container = styled.div`
   background: white;
   width: 300px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transform: translateX(${(props) => (props.isOpen ? '0' : '100%')});
+  transition: transform 0.2s ease-in;
 `;
 
 const X = styled(FiX)`
@@ -20,7 +23,7 @@ const X = styled(FiX)`
   }
 `;
 
-const Xcontainer = styled.div`
+const XContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
@@ -29,20 +32,81 @@ const Content = styled.div`
   padding: 1rem 2rem;
 `;
 
-const Title = styled.div`
-  font-size: 3rem;
+const Title = styled.h2`
+  font-size: 2.5rem;
   font-weight: 400;
+  border-bottom: 1px solid #efefef;
+`;
+
+const Item = styled.li`
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 0.25rem;
+`;
+
+const Ul = styled.ul`
+  padding: 0;
+`;
+const Total = styled.p`
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+`;
+
+const Button = styled.button`
+  background: #7e6def;
+  font-size: 2rem;
+  color: inherit;
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 1rem;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Cart = () => {
-  const handleClick = () => {};
+  const { cart, isOpen, openCart, closeCart } = useCart();
+  const router = useRouter();
+
+  const handleClick = () => {
+    closeCart();
+  };
+
+  const navigateToCheckout = () => {
+    closeCart();
+    router.push('/checkout');
+  };
 
   return (
-    <Container>
-      <Xcontainer>
+    <Container isOpen={isOpen}>
+      <XContainer>
         <X onClick={handleClick} />
-      </Xcontainer>
-      <p>I am a cart!</p>
+      </XContainer>
+      <Content>
+        <Title>Cart</Title>
+        <Ul>
+          {cart.map((item) => {
+            return (
+              <Item>
+                <span>
+                  {item.qty} x {item.name}
+                </span>
+                <span>${item.price / 100}</span>
+              </Item>
+            );
+          })}
+        </Ul>
+        <Total>
+          <span>Total</span>
+          <span>$500</span>
+        </Total>
+        <Button onClick={navigateToCheckout()}>checkout</Button>
+      </Content>
     </Container>
   );
 };

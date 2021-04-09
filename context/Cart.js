@@ -4,33 +4,41 @@ export const Context = createContext();
 
 const Cart = ({ children }) => {
   const getInitialCart = () => JSON.parse(localStorage.getItem('cart'));
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [total, setTotal] = useState(0);
 
-  // useEffect(() => {
-  //   const initalCart = getInitialCart();
-  //   if (initalCart) {
-  //     setCart(initalCart);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const initalCart = getInitialCart();
+    if (initalCart) {
+      setCart(initalCart);
+    }
+  }, []);
 
   useEffect(() => {
     //write to local storage
-    //localStorage.setItem('cart', JSON.stringify(cart));
-
-    if (cart) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    // if (cart) {
+    //   localStorage.setItem('cart', JSON.stringify(cart));
+    // }
   }, [cart]);
 
-  const addItemToCart = (id, qty = 1) => {
-    const item = cart.find((i) => i.id === id);
+  const openCart = () => {
+    setIsOpen(true);
+  };
 
+  const closeCart = () => {
+    setIsOpen(false);
+  };
+  const addItemToCart = (product, qty = 1) => {
+    const item = cart.find((i) => i.id === product.id);
+    console.log(cart);
     if (item) {
       //increase qty
       item.qty += qty;
       setCart([...cart]);
     } else {
-      setCart([...cart, { id, qty }]);
+      setCart([...cart, { ...product, qty }]);
     }
   };
 
@@ -45,6 +53,9 @@ const Cart = ({ children }) => {
     cart,
     addItemToCart,
     removeItemFromCart,
+    openCart,
+    closeCart,
+    isOpen,
   };
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;
