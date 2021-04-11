@@ -26,6 +26,17 @@ const Price = styled.span`
   display: inline-block;
 `;
 
+const Container = styled.div`
+  background-color: white;
+  padding: 1rem 2rem;
+  min-height: 200px;
+  position: relative;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
 const Product = ({ product: { data, content } }) => {
   const html = marked(content);
   return (

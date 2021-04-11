@@ -7,7 +7,7 @@ import Cart from '../components/Cart';
 const Container = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
   //background: linear-gradient(to right, #c9d6ff, #e2e2e2);
-  background: #333;
+  background: #eee;
   font-family: 'Lato', sans-serif;
   color: #444;
   min-height: 100vh;

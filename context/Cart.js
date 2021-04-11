@@ -21,6 +21,10 @@ const Cart = ({ children }) => {
     // if (cart) {
     //   localStorage.setItem('cart', JSON.stringify(cart));
     // }
+    let newTotal = 0;
+    cart.forEach((item) => {
+      newTotal += item.price * item.qty;
+    });
   }, [cart]);
 
   const openCart = () => {
@@ -49,6 +53,11 @@ const Cart = ({ children }) => {
     setCart(newCart);
   };
 
+  const clearCart = () => {
+    localStorage.removeItem('cart');
+    setCart([]);
+  };
+
   const exposed = {
     cart,
     addItemToCart,
@@ -56,6 +65,8 @@ const Cart = ({ children }) => {
     openCart,
     closeCart,
     isOpen,
+    total,
+    clearCart,
   };
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>;

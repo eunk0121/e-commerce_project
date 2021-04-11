@@ -1,6 +1,7 @@
 import Page from '../components/styled/Page';
 import useCart from '../hooks/useCart';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Item = styled.li`
   list-style: none;
@@ -34,14 +35,20 @@ const Button = styled.button`
 `;
 
 const Checkout = () => {
-  const { cart } = useCart();
+  const { cart, total } = useCart();
 
-  const processPayment = () => {
-    console.log('futre');
+  const processPayment = async () => {
+    const url = '/.netlify/functions/charge-card';
+    const newCart = cart.map(({ id, qty }) => ({
+      id,
+      qty,
+    }));
+
+    const { data } = await axios.post(url, { cart: newCart });
   };
 
-  let total = 0;
-  cart.forEach((item) => (total += item.price * item.qty));
+  // let total = 0;
+  // cart.forEach((item) => (total += item.price * item.qty));
 
   return (
     <Page>
@@ -64,7 +71,7 @@ const Checkout = () => {
             <span>Total</span>
             <span>${total / 100}</span>
           </Total>
-          <Button onClick={processPayment()}>Process Payment</Button>
+          <Button onClick={processPayment}>Process Payment</Button>
         </>
       ) : (
         <p>You do not appear to have any items in your cart!</p>
