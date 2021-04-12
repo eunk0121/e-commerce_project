@@ -25,6 +25,8 @@ const Cart = ({ children }) => {
     cart.forEach((item) => {
       newTotal += item.price * item.qty;
     });
+
+    setTotal(newTotal);
   }, [cart]);
 
   const openCart = () => {

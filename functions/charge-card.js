@@ -1,5 +1,6 @@
 const fs = require('fs');
 const matter = require('gray-matter');
+const stripe = requrie('stripe');
 
 const getProducts = () => {
   const filenames = fs.readdirSync(directory);
@@ -26,9 +27,30 @@ exports.handler = async (event, context) => {
     };
   });
   //talking to stripe
+  const lineItems = cartWithProducts.map((product) => ({
+    price_data: {
+      currency: 'INR',
+      product_data: {
+        name: product.name,
+      },
+      unit_amount: product.price,
+    },
+    quantity: product.qty,
+  }));
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: lineItems,
+    mode: 'payment',
+    success_url: `${process.env.URL}/success`,
+    cancel_url: `${process.env.URL}/cancelled`,
+  });
+
   //charging the card
   return {
     statusCode: 200,
-    body: 'I have charged taht card!',
+    body: JSON.stringify({
+      id: session.id,
+    }),
   };
 };

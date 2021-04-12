@@ -107,7 +107,7 @@ const Cart = () => {
               <span>Total</span>
               <span>${total / 100}</span>
             </Total>
-            <Button onClick={navigateToCheckout}>checkout</Button>
+            <Button onClick={navigateToCheckout}>chec kout</Button>
           </>
         ) : (
           <p>Cart is empty!</p>
